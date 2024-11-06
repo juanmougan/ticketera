@@ -1,0 +1,33 @@
+<div id="<%= dom_id story %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= story.title %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= story.description %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= story.status %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Due date:</strong>
+    <%= story.due_date %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Points:</strong>
+    <%= story.points %>
+  </p>
+
+  <% if story.epic.present? %>
+    <p class="my-5">
+      <strong class="block font-medium mb-1">Epic:</strong>
+      <%= story.epic.title %>
+    </p>
+  <% end %>
+</div>
