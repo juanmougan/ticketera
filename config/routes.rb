@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :sprints
   resources :bugs
   resources :subtasks
   resources :stories

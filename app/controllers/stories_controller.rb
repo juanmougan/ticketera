@@ -21,9 +21,15 @@ class StoriesController < ApplicationController
 
   # POST /stories or /stories.json
   def create
-    @story = Story.new(story_params)
+    if story_params.sprint.nil?
+      sprint = Sprint.find(story_params.sprint)
+      @story = sprint.tasks.new(story_params)
+    else
+      @story = Story.new(story_params)
+    end
 
     respond_to do |format|
+      @story.status = params[:story][:status].to_i  # Convert status to integer
       if @story.save
         format.html { redirect_to @story, notice: "Story was successfully created." }
         format.json { render :show, status: :created, location: @story }
@@ -34,9 +40,21 @@ class StoriesController < ApplicationController
     end
   end
 
+  def create
+  @task = @sprint.tasks.new(task_params)
+
+  if @task.save
+    @sprint.add_task(@task)  # Update the order with the new task
+    redirect_to sprint_path(@sprint), notice: "#{@task.type} created successfully."
+  else
+    render partial: "sprints/task_form", locals: { sprint: @sprint }, status: :unprocessable_entity
+  end
+end
+
   # PATCH/PUT /stories/1 or /stories/1.json
   def update
     respond_to do |format|
+      @story.status = params[:story][:status].to_i  # Convert status to integer
       if @story.update(story_params)
         format.html { redirect_to @story, notice: "Story was successfully updated." }
         format.json { render :show, status: :ok, location: @story }

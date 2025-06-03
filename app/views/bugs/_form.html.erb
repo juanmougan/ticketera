@@ -23,12 +23,12 @@
 
   <div class="my-5">
     <%= form.label :severity %>
-    <%= form.number_field :severity, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :status, Bug.severities.keys.map { |status, value| [status.humanize, value.to_i] } %>
   </div>
 
   <div class="my-5">
     <%= form.label :status %>
-    <%= form.number_field :status, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :status, Bug.statuses.keys.map { |status, value| [status.humanize, value.to_i] } %>
   </div>
 
   <div class="my-5">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_05_173345) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_06_190250) do
   create_table "bugs", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -20,6 +20,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_05_173345) do
     t.integer "story_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "sprint_id"
+    t.index ["sprint_id"], name: "index_bugs_on_sprint_id"
     t.index ["story_id"], name: "index_bugs_on_story_id"
   end
 
@@ -33,6 +35,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_05_173345) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sprints", force: :cascade do |t|
+    t.string "title"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "stories", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -42,7 +53,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_05_173345) do
     t.integer "epic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "sprint_id"
     t.index ["epic_id"], name: "index_stories_on_epic_id"
+    t.index ["sprint_id"], name: "index_stories_on_sprint_id"
   end
 
   create_table "subtasks", force: :cascade do |t|
@@ -56,7 +69,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_05_173345) do
     t.index ["story_id"], name: "index_subtasks_on_story_id"
   end
 
+  add_foreign_key "bugs", "sprints"
   add_foreign_key "bugs", "stories"
   add_foreign_key "stories", "epics"
+  add_foreign_key "stories", "sprints"
   add_foreign_key "subtasks", "stories"
 end

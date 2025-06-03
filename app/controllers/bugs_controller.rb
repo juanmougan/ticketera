@@ -65,6 +65,8 @@ class BugsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bug_params
+      params[:bug][:severity] = params[:bug][:severity].to_i    # Nasty hack
+      params[:bug][:status] = params[:bug][:status].to_i    # Nasty hack
       params.expect(bug: [ :title, :description, :severity, :status, :due_date, :story_id ])
     end
 end
