@@ -23,7 +23,7 @@
 
   <div class="my-5">
     <%= form.label :status %>
-    <%= form.select :status, Story.statuses.keys.map { |status| [status.humanize, status] } %>
+    <%= form.select :status, enum_options_for_select(Story, :status) %>
   </div>
 
   <div class="my-5">

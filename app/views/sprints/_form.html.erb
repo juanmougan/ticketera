@@ -29,7 +29,7 @@
 
   <div class="my-5">
     <%= form.label :status %>
-    <%= form.select :status, Sprint.statuses.keys.map { |status, value| [status.humanize, value.to_i] } %>
+    <%= form.select :status, enum_options_for_select(Sprint, :status) %>
   </div>
 
   <div class="inline">

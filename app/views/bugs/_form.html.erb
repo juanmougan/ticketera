@@ -23,12 +23,12 @@
 
   <div class="my-5">
     <%= form.label :severity %>
-    <%= form.select :status, Bug.severities.keys.map { |status, value| [status.humanize, value.to_i] } %>
+    <%= form.select :severity, enum_options_for_select(Bug, :severity) %>
   </div>
 
   <div class="my-5">
     <%= form.label :status %>
-    <%= form.select :status, Bug.statuses.keys.map { |status, value| [status.humanize, value.to_i] } %>
+    <%= form.select :status, enum_options_for_select(Bug, :status) %>
   </div>
 
   <div class="my-5">
