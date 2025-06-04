@@ -38,7 +38,7 @@
 
   <div class="my-5">
     <%= form.label :epic_id %>
-    <%= form.text_field :epic_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :epic_id, @epics.map { |t| [t.title, t.id]}, {}, class: "form-control" %>
   </div>
 
   <div class="inline">

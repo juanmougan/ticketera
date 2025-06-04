@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
   before_action :set_story, only: %i[ show edit update destroy ]
+  before_action :fill_epics, only: %i[ new edit ]
 
   # GET /stories or /stories.json
   def index
@@ -79,6 +80,10 @@ end
     # Use callbacks to share common setup or constraints between actions.
     def set_story
       @story = Story.find(params.expect(:id))
+    end
+
+    def fill_epics
+      @epics = Epic.all
     end
 
     # Only allow a list of trusted parameters through.
