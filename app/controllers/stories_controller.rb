@@ -22,11 +22,11 @@ class StoriesController < ApplicationController
 
   # POST /stories or /stories.json
   def create
-    if story_params.sprint.nil?
+    if story_params[:sprint].nil?
+      @story = Story.new(story_params)
+    else
       sprint = Sprint.find(story_params.sprint)
       @story = sprint.tasks.new(story_params)
-    else
-      @story = Story.new(story_params)
     end
 
     respond_to do |format|
@@ -40,17 +40,6 @@ class StoriesController < ApplicationController
       end
     end
   end
-
-  def create
-  @task = @sprint.tasks.new(task_params)
-
-  if @task.save
-    @sprint.add_task(@task)  # Update the order with the new task
-    redirect_to sprint_path(@sprint), notice: "#{@task.type} created successfully."
-  else
-    render partial: "sprints/task_form", locals: { sprint: @sprint }, status: :unprocessable_entity
-  end
-end
 
   # PATCH/PUT /stories/1 or /stories/1.json
   def update
@@ -88,6 +77,7 @@ end
 
     # Only allow a list of trusted parameters through.
     def story_params
+      params[:story][:status] = params[:story][:status].to_i    # Nasty hack
       params.expect(story: [ :title, :description, :status, :due_date, :points, :epic_id ])
     end
 end
