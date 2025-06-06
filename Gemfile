@@ -62,21 +62,25 @@ group :test do
   gem "selenium-webdriver"
 end
 
+group :development, :test do
+  gem "rspec-rails", "~> 6.0"
+end
+
 # Authentication
-gem 'devise'
+gem "devise"
 
 # Authorization
-gem 'pundit'
+gem "pundit"
 
 # CSS Framework
-gem 'tailwindcss-rails'
+gem "tailwindcss-rails"
 
 # Charting and Data Visualization
-gem 'chartkick'
-gem 'chart-js-rails'
+gem "chartkick"
+gem "chart-js-rails"
 
 # Database Adapter (if not already included for PostgreSQL)
 # gem 'pg'    # Let's start with sqlite, then switch to pg
 
 # Task ordering within sprints (optional)
-gem 'acts_as_list'
+gem "acts_as_list"
